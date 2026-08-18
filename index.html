@@ -133,6 +133,23 @@ footer{text-align:center;padding:26px 16px 40px;color:var(--muted);font-size:12p
 #successOverlay .s-sub{font-size:13px;color:#9a9da6;margin-bottom:24px}
 #successOverlay .s-home{display:inline-block;border:0;background:var(--red);color:#fff;font-weight:800;border-radius:12px;padding:14px 26px;cursor:pointer;font:inherit;font-size:15px;text-decoration:none}
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1677998319917755');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1677998319917755&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <header><div class="wrap head">
@@ -356,6 +373,7 @@ document.querySelector('#form').addEventListener('submit',async e=>{
       const sheetData={name,phone,wilaya,address,size:it.productName,qty:it.quantity,delivery:deliveryMethod,note:`السعر الإجمالي: ${totalPrice} DA`};
       await fetch(SHEET_WEBHOOK_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(sheetData)});
     }
+    if(typeof fbq==='function'){fbq('track','Lead',{value:totalPrice,currency:'DZD'});}
     document.getElementById('successOverlay').style.display='flex';window.scrollTo(0,0);
   }catch(err){
     msg.className='message err';msg.textContent='حدث خطأ أثناء الإرسال، حاول مرة أخرى.';
